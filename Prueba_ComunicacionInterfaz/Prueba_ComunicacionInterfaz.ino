@@ -2,16 +2,14 @@
 //Librerias de comunicación Modbus
 #include <ArduinoRS485.h> 
 #include <ArduinoModbus.h>
-
 //Librerias de reloj
-#include <TimeLib.h>
-
+//#include <TimeLib.h>
 //Librerias de sensor de Temperatura
-#include <OneWire.h>
-#include <DallasTemperature.h>
+//#include <OneWire.h>
+//#include <DallasTemperature.h>
 
 //Clases de OneWire y DallasTemperature
-//OneWire oneWireObjeto(pinDatosT);
+//OneWire oneW  ireObjeto(pinDatosT);
 //DallasTemperature sensorDS18B20(&oneWireObjeto);
 
 //Definicion de caracteristicas de esclavo
@@ -106,72 +104,16 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  ModbusRTUServer.poll();
+  ModbusRTUServer.poll(); //Iniciar servidor
   delay(30);
-  Configuraciones();
+  recibiendoConfiguracionesDeSSF();
   delay(30);
-//  Serial.print(copy_SISMyC_NoConexion);
-//  Serial.print("\t");
-//  Serial.print(copy_SISMyC_EstadoAct);
-//  Serial.print("\t");
-//  Serial.print(copy_SISMyC_EstadoAnt);
-//  Serial.print("\t");
-//  Serial.print(copy_SISMyC_Modo);
-//  Serial.print("\t");
-//  Serial.print(copy_SISMyC_Identificacion);
-//  Serial.print("\t");
-//  Serial.print(copy_SISMyC_Regar);
-//  Serial.print("\t");
-//  Serial.print(copy_SISMyC_Medir);
-//  Serial.print("\t");
-//  Serial.print(copy_SISMyC_Fertilizar);
-//  Serial.print("\t");
-//  Serial.print(copy_SISMyC_CantCiclosRiego);
-//  Serial.print("\t");
-//  Serial.print(copy_SISMyC_UnidadCiclosRiego);
-//  Serial.print("\t");
-//  Serial.print(copy_SISMyC_CantCiclosMedicion);
-//  Serial.print("\t");
-//  Serial.print(copy_SISMyC_UnidadCiclosMedicion);
-//  Serial.print("\t");
-//  Serial.print(copy_SISMyC_CantAgua);
-//  Serial.print("\t");
-//  Serial.print(copy_SISMyC_CantFertilizante);
-//  Serial.print("\t");
-//  Serial.print(copy_SISMyC_RangoMinimoTemperatura);
-//  Serial.print("\t");
-//  Serial.print(copy_SISMyC_RangoMaximoTemperatura);
-//  Serial.print("\t");
-//  Serial.print(copy_SISMyC_RangoMinimoHumedad);
-//  Serial.print("\t");
-//  Serial.println(copy_SISMyC_RangoMaximoHumedad);
-  
+  impresion();
   //delay(60);
-  if(copy_SISMyC_NoConexion != 0){
-    copy_SSF_NoConexion = Id; 
-    copy_SSF_EstadoAct = 1;
-    copy_SSF_EstadoAnt = 0;
-    copy_SSF_Modo = 1; //0 - Semi; 1 - Automatico
-    copy_SSF_Confirmacion = 0;
-    copy_SSF_Fechadd = 11;
-    copy_SSF_Fechamm = 12;
-    copy_SSF_Fechaaa = 2021;
-    copy_SSF_Horahh = 18;
-    copy_SSF_Horamm = 28;
-    copy_SSF_Temperatura = 30; //
-    copy_SSF_Humedad = 50;
-    copy_SSF_NutrientesN = 0; //
-    copy_SSF_NutrientesP = 0;//
-    copy_SSF_NutrientesK = 0; //
-    copy_SSF_pH = 0;  //
-  
-    Envio_Datos_Sensores();
-    Limpieza_Datos();  
-  }
+  //if(copy_SISMyC_NoConexion != 0){enviarDatosPrueba();}
 }
 
-int Configuraciones() {  
+int recibiendoConfiguracionesDeSSF() {  
     delay(110);
     copy_SISMyC_NoConexion = ModbusRTUServer.holdingRegisterRead(SISMyC_NoConexion);
     delay(110);
@@ -209,6 +151,66 @@ int Configuraciones() {
     delay(110);
     copy_SISMyC_RangoMaximoHumedad = ModbusRTUServer.holdingRegisterRead(SISMyC_RangoMaximoHumedad);
     delay(110);
+}
+
+void impresion(){
+  Serial.print(copy_SISMyC_NoConexion);
+  Serial.print("\t");
+  Serial.print(copy_SISMyC_EstadoAct);
+  Serial.print("\t");
+  Serial.print(copy_SISMyC_EstadoAnt);
+  Serial.print("\t");
+  Serial.print(copy_SISMyC_Modo);
+  Serial.print("\t");
+  Serial.print(copy_SISMyC_Identificacion);
+  Serial.print("\t");
+  Serial.print(copy_SISMyC_Regar);
+  Serial.print("\t");
+  Serial.print(copy_SISMyC_Medir);
+  Serial.print("\t");
+  Serial.print(copy_SISMyC_Fertilizar);
+  Serial.print("\t");
+  Serial.print(copy_SISMyC_CantCiclosRiego);
+  Serial.print("\t");
+  Serial.print(copy_SISMyC_UnidadCiclosRiego);
+  Serial.print("\t");
+  Serial.print(copy_SISMyC_CantCiclosMedicion);
+  Serial.print("\t");
+  Serial.print(copy_SISMyC_UnidadCiclosMedicion);
+  Serial.print("\t");
+  Serial.print(copy_SISMyC_CantAgua);
+  Serial.print("\t");
+  Serial.print(copy_SISMyC_CantFertilizante);
+  Serial.print("\t");
+  Serial.print(copy_SISMyC_RangoMinimoTemperatura);
+  Serial.print("\t");
+  Serial.print(copy_SISMyC_RangoMaximoTemperatura);
+  Serial.print("\t");
+  Serial.print(copy_SISMyC_RangoMinimoHumedad);
+  Serial.print("\t");
+  Serial.println(copy_SISMyC_RangoMaximoHumedad);
+}
+
+void enviarDatosPrueba(){
+  copy_SSF_NoConexion = Id; 
+    copy_SSF_EstadoAct = 1;
+    copy_SSF_EstadoAnt = 0;
+    copy_SSF_Modo = 1; //0 - Semi; 1 - Automatico
+    copy_SSF_Confirmacion = 0;
+    copy_SSF_Fechadd = 11;
+    copy_SSF_Fechamm = 12;
+    copy_SSF_Fechaaa = 2021;
+    copy_SSF_Horahh = 18;
+    copy_SSF_Horamm = 28;
+    copy_SSF_Temperatura = 30; //
+    copy_SSF_Humedad = 50;
+    copy_SSF_NutrientesN = 0; //
+    copy_SSF_NutrientesP = 0;//
+    copy_SSF_NutrientesK = 0; //
+    copy_SSF_pH = 0;  //
+  
+    Envio_Datos_Sensores();
+    Limpieza_Datos(); 
 }
 
 
