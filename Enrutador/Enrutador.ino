@@ -497,7 +497,7 @@ void setup() {
   t0=millis();
     
   //setTime(hora,minutos,segundos,dia,mes,anyo);
-  setTime(4, 53, 0, 12, 12, 2021);                 //---------------------------------------------MODIFICACIÓN DE FECHA-------------------------------------------------------
+  setTime(1, 15 , 0, 14, 12, 2021);                 //---------------------------------------------MODIFICACIÓN DE FECHA-------------------------------------------------------
   fecha = now();
   Fecha_C = fecha;
   Fecha_R = fecha;
@@ -611,11 +611,15 @@ void automatico(){
   
   
   if (accion_M == 1){
+    String Mensaje_Mediciones;
     medir();
     digitalWrite(Led_S,HIGH);
     interrupts();
     delay(500);
-    
+    int Prom_SensorT2 = Prom_SensorT * 100;
+    int Prom_SensorH2 = Prom_SensorH * 100;
+    Mensaje_Mediciones = "RSP00011," +  (String)idArduino + ",0,1,1,0," + (String)day(fecha) + "," + (String)month(fecha) + "," + (String)year(fecha) + "," + (String)hour(fecha) + "," + (String)minute(fecha) + "," + (String)Prom_SensorT2 + "," + (String)Prom_SensorH2 + ",0,0,0,0";
+    Serial.println(Mensaje_Mediciones);
     Fecha_M = now();}
     else{
       digitalWrite(AlimentacionS,LOW);
