@@ -15,7 +15,6 @@ String arregloDatos[9]={};
 
 void setup() {
   Serial.begin(9600); // opens serial port, sets data rate to 9600 bps
-  //Serial.println('Arduino saludando al servidor, cambio');
 }
 
 
@@ -33,7 +32,6 @@ void loop() {
 
 
 void decidiendoAccion(){
-  //Serial.println("entrando a decidiendo accion");
   if (posicion1 == 0 and datosDisponibles == 1){
     envioDeDatosDeSensores();
   }else if (posicion2 == 0){
@@ -50,8 +48,6 @@ void envioDeDatosDeSensores(){
 }
 
 String SepararPorComas(int NumeroDeRegistros){
-  //String Med_D = Serial.readString();
-  //String arreglo[NumeroDeRegistros] = {};
   String subcadena = valor.substring(8,-1);
   Serial.print("El valor de entrada es: ");
   Serial.println(subcadena);
@@ -59,10 +55,6 @@ String SepararPorComas(int NumeroDeRegistros){
   for(int i=0; i<NumeroDeRegistros; i++){
     arregloDatos[i] = s.separa(subcadena, ',',i);          
   } 
-
-  Serial.println(arregloDatos[6]);
-  Serial.println(arregloDatos[7]);
-  Serial.println(arregloDatos[8]);
 }
 
 void verificarNodo(){
@@ -79,7 +71,7 @@ void verificarModos(){
   Serial.println(arregloDatos[8]);
   if(modo == 0){
     // Semiautomático
-    Serial.println("semiautomático");
+    Serial.println("Entrando al modo semiautomático");
   }else if(modo == 1){
     // Automático
     Serial.println("Automático");
