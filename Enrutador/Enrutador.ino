@@ -9,8 +9,8 @@ int posicion1 = 0;
 int posicion2 = 0;
 int datosDisponibles = 1;
 int idArduino = 3;
-String arregloSsfASismyc[3]={};
-String arregloSismycASsf[3]={};
+int numeroRegistros = 9;
+String arregloDatos[9]={};
 
 
 void setup() {
@@ -28,67 +28,60 @@ void loop() {
     posicion1 = valor.indexOf("CMD0001 ");
     posicion2 = valor.indexOf("CMD0002 ");
   }
-  if(posicion1 == 0 or posicion2 == 0){
-    procesamientoDeDatos();
-  }
+  decidiendoAccion();
 }
-
-
-void procesamientoDeDatos(){
-  String subcadena = valor.substring(8,-1);
-  arreglo = subcadena;
-  String* arreglo = SepararPorComas(3);
-  String arreglo2 = 
-  Serial.print("El arreglo de arribo es: ");
-  Serial.println(arreglo);
-  String idMensaje = String(arreglo[2]);
-  int idMensajeStr = idMensaje.toInt();
-  Serial.print("El id de arribo es: ");
-  Serial.println(idMensajeStr);
-
- // En esta parte deberemos cambiar 
-  //String caracter = String(arreglo[2]);
-  //int caracter2 = caracter.toInt();
-  // Después deberemos cambiar el caracter2 a un elemento del arreglo
-  if ( idMensaje == idArduino ){
-    decidiendoAccion();
-  }
-}
-
-
-String* SepararPorComas(int NumeroDeRegistros){
-  String Med_D = Serial.readString();
-  String arreglo[NumeroDeRegistros] = {};
-  for(int i=0; i<NumeroDeRegistros; i++){
-    arreglo[i] = s.separa(Med_D, ',',i);          
-  } 
-  return arreglo;  
-}
-
 
 
 void decidiendoAccion(){
+  //Serial.println("entrando a decidiendo accion");
   if (posicion1 == 0 and datosDisponibles == 1){
     envioDeDatosDeSensores();
   }else if (posicion2 == 0){
-    verificarModos();
+    Serial.println("Entrando a posicion2");
+    SepararPorComas(numeroRegistros);
+    verificarNodo();
   }else{
     Serial.println("Se recibió un valor no reconocido");
   }
 }
 
-
 void envioDeDatosDeSensores(){
   Serial.println("enviando datos");
 }
 
+String SepararPorComas(int NumeroDeRegistros){
+  //String Med_D = Serial.readString();
+  //String arreglo[NumeroDeRegistros] = {};
+  String subcadena = valor.substring(8,-1);
+  Serial.print("El valor de entrada es: ");
+  Serial.println(subcadena);
+  
+  for(int i=0; i<NumeroDeRegistros; i++){
+    arregloDatos[i] = s.separa(subcadena, ',',i);          
+  } 
+
+  Serial.println(arregloDatos[6]);
+  Serial.println(arregloDatos[7]);
+  Serial.println(arregloDatos[8]);
+}
+
+void verificarNodo(){
+  int idArribo = arregloDatos[2].toInt();
+  if (idArribo == idArduino){
+    verificarModos();
+    Serial.println("Entrando a la verificación de Nodo");
+  }
+}
 
 void verificarModos(){
   Serial.println("verificando modos");
-  if(arreglo[8] == 0){
+  int modo = arregloDatos[8].toInt();
+  Serial.println(arregloDatos[8]);
+  if(modo == 0){
     // Semiautomático
-  }else if(arreglo[8] == 1){
+    Serial.println("semiautomático");
+  }else if(modo == 1){
     // Automático
-  }
-  
+    Serial.println("Automático");
+  } 
 }
