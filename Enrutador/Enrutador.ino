@@ -1,10 +1,16 @@
+#include <Separador.h>
+Separador s;
+
 String valor = " "; // for incoming serial data
 String mensaje0 = "Arduino ha recibido el siguiente mensaje: ";
 String numeroConexion = "13";
-char numeroConexionFalso = "3";
+String arreglo = " ";
 int posicion1 = 0;
 int posicion2 = 0;
 int datosDisponibles = 1;
+int idArduino = 3;
+String arregloSsfASismyc[3]={};
+String arregloSismycASsf[3]={};
 
 
 void setup() {
@@ -30,17 +36,33 @@ void loop() {
 
 void procesamientoDeDatos(){
   String subcadena = valor.substring(8,-1);
-  String arreglo = subcadena;
-  //separarPorComas(subcadena);
-  Serial.println(arreglo[2]);
+  arreglo = subcadena;
+  String* arreglo = SepararPorComas(3);
+  String arreglo2 = 
+  Serial.print("El arreglo de arribo es: ");
+  Serial.println(arreglo);
+  String idMensaje = String(arreglo[2]);
+  int idMensajeStr = idMensaje.toInt();
+  Serial.print("El id de arribo es: ");
+  Serial.println(idMensajeStr);
 
  // En esta parte deberemos cambiar 
-  String caracter = String(arreglo[2]);
-  int caracter2 = caracter.toInt();
-  
-  if ( caracter2 == 3 ){
+  //String caracter = String(arreglo[2]);
+  //int caracter2 = caracter.toInt();
+  // Después deberemos cambiar el caracter2 a un elemento del arreglo
+  if ( idMensaje == idArduino ){
     decidiendoAccion();
   }
+}
+
+
+String* SepararPorComas(int NumeroDeRegistros){
+  String Med_D = Serial.readString();
+  String arreglo[NumeroDeRegistros] = {};
+  for(int i=0; i<NumeroDeRegistros; i++){
+    arreglo[i] = s.separa(Med_D, ',',i);          
+  } 
+  return arreglo;  
 }
 
 
@@ -63,5 +85,10 @@ void envioDeDatosDeSensores(){
 
 void verificarModos(){
   Serial.println("verificando modos");
+  if(arreglo[8] == 0){
+    // Semiautomático
+  }else if(arreglo[8] == 1){
+    // Automático
+  }
   
 }
