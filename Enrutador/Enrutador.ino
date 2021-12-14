@@ -35,7 +35,7 @@ void decidiendoAccion(){
   if (posicion1 == 0 and datosDisponibles == 1){
     envioDeDatosDeSensores();
   }else if (posicion2 == 0){
-    Serial.println("Entrando a posicion2");
+    Serial.println("Entrando a recibiendo datos");
     SepararPorComas(numeroRegistros);
     verificarNodo();
   }else{
@@ -58,16 +58,17 @@ String SepararPorComas(int NumeroDeRegistros){
 }
 
 void verificarNodo(){
+  Serial.println("Entrando a la verificación de Nodo");
   int idArribo = arregloDatos[2].toInt();
   if (idArribo == idArduino){
     verificarModos();
-    Serial.println("Entrando a la verificación de Nodo");
   }
 }
 
 void verificarModos(){
   Serial.println("verificando modos");
   int modo = arregloDatos[8].toInt();
+  Serial.print("la posición 8 es: ");
   Serial.println(arregloDatos[8]);
   if(modo == 0){
     // Semiautomático
