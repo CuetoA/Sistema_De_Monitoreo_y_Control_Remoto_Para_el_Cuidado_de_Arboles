@@ -108,7 +108,7 @@ void loop() {
   delay(30);
   recibiendoConfiguracionesDeSSF();
   delay(30);
-  impresion();
+  impresion(); 
   //delay(60);
   //if(copy_SISMyC_NoConexion != 0){enviarDatosPrueba();}
 }
@@ -116,99 +116,16 @@ void loop() {
 int recibiendoConfiguracionesDeSSF() {  
     delay(110);
     copy_SISMyC_NoConexion = ModbusRTUServer.holdingRegisterRead(SISMyC_NoConexion);
-    delay(110);
-    copy_SISMyC_EstadoAct = ModbusRTUServer.holdingRegisterRead(SISMyC_EstadoAct);
-    delay(110);
-    copy_SISMyC_EstadoAnt = ModbusRTUServer.holdingRegisterRead(SISMyC_EstadoAnt);
-    delay(110);
-    copy_SISMyC_Modo = ModbusRTUServer.holdingRegisterRead(SISMyC_Modo);
-    delay(110);
-    copy_SISMyC_Identificacion = ModbusRTUServer.holdingRegisterRead(SISMyC_Identificacion);
-    delay(110);
-    copy_SISMyC_Regar = ModbusRTUServer.holdingRegisterRead(SISMyC_Regar);
-    delay(110);
-    copy_SISMyC_Medir = ModbusRTUServer.holdingRegisterRead(SISMyC_Medir);
-    delay(110);
-    copy_SISMyC_Fertilizar = ModbusRTUServer.holdingRegisterRead(SISMyC_Fertilizar );
-    delay(110);
-    copy_SISMyC_CantCiclosRiego = ModbusRTUServer.holdingRegisterRead(SISMyC_CantCiclosRiego);
-    delay(110);
-    copy_SISMyC_UnidadCiclosRiego = ModbusRTUServer.holdingRegisterRead(SISMyC_UnidadCiclosMedicion);
-    delay(110);
-    copy_SISMyC_CantCiclosMedicion = ModbusRTUServer.holdingRegisterRead(SISMyC_CantCiclosMedicion);
-    delay(110);
-    copy_SISMyC_UnidadCiclosMedicion = ModbusRTUServer.holdingRegisterRead(SISMyC_UnidadCiclosMedicion);
-    delay(110);
-    copy_SISMyC_CantAgua = ModbusRTUServer.holdingRegisterRead(SISMyC_CantAgua);
-    delay(110);
-    copy_SISMyC_CantFertilizante = ModbusRTUServer.holdingRegisterRead(SISMyC_CantFertilizante);
-    delay(110);
-    copy_SISMyC_RangoMinimoTemperatura = ModbusRTUServer.holdingRegisterRead(SISMyC_RangoMinimoTemperatura);
-    delay(110);
-    copy_SISMyC_RangoMaximoTemperatura = ModbusRTUServer.holdingRegisterRead(SISMyC_RangoMaximoTemperatura);
-    delay(110);
-    copy_SISMyC_RangoMinimoHumedad = ModbusRTUServer.holdingRegisterRead(SISMyC_RangoMinimoHumedad);
-    delay(110);
-    copy_SISMyC_RangoMaximoHumedad = ModbusRTUServer.holdingRegisterRead(SISMyC_RangoMaximoHumedad);
-    delay(110);
+    de
 }
 
 void impresion(){
   Serial.print(copy_SISMyC_NoConexion);
   Serial.print("\t");
-  Serial.print(copy_SISMyC_EstadoAct);
-  Serial.print("\t");
-  Serial.print(copy_SISMyC_EstadoAnt);
-  Serial.print("\t");
-  Serial.print(copy_SISMyC_Modo);
-  Serial.print("\t");
-  Serial.print(copy_SISMyC_Identificacion);
-  Serial.print("\t");
-  Serial.print(copy_SISMyC_Regar);
-  Serial.print("\t");
-  Serial.print(copy_SISMyC_Medir);
-  Serial.print("\t");
-  Serial.print(copy_SISMyC_Fertilizar);
-  Serial.print("\t");
-  Serial.print(copy_SISMyC_CantCiclosRiego);
-  Serial.print("\t");
-  Serial.print(copy_SISMyC_UnidadCiclosRiego);
-  Serial.print("\t");
-  Serial.print(copy_SISMyC_CantCiclosMedicion);
-  Serial.print("\t");
-  Serial.print(copy_SISMyC_UnidadCiclosMedicion);
-  Serial.print("\t");
-  Serial.print(copy_SISMyC_CantAgua);
-  Serial.print("\t");
-  Serial.print(copy_SISMyC_CantFertilizante);
-  Serial.print("\t");
-  Serial.print(copy_SISMyC_RangoMinimoTemperatura);
-  Serial.print("\t");
-  Serial.print(copy_SISMyC_RangoMaximoTemperatura);
-  Serial.print("\t");
-  Serial.print(copy_SISMyC_RangoMinimoHumedad);
-  Serial.print("\t");
-  Serial.println(copy_SISMyC_RangoMaximoHumedad);
 }
 
 void enviarDatosPrueba(){
   copy_SSF_NoConexion = Id; 
-    copy_SSF_EstadoAct = 1;
-    copy_SSF_EstadoAnt = 0;
-    copy_SSF_Modo = 1; //0 - Semi; 1 - Automatico
-    copy_SSF_Confirmacion = 0;
-    copy_SSF_Fechadd = 11;
-    copy_SSF_Fechamm = 12;
-    copy_SSF_Fechaaa = 2021;
-    copy_SSF_Horahh = 18;
-    copy_SSF_Horamm = 28;
-    copy_SSF_Temperatura = 30; //
-    copy_SSF_Humedad = 50;
-    copy_SSF_NutrientesN = 0; //
-    copy_SSF_NutrientesP = 0;//
-    copy_SSF_NutrientesK = 0; //
-    copy_SSF_pH = 0;  //
-  
     Envio_Datos_Sensores();
     Limpieza_Datos(); 
 }
@@ -216,73 +133,12 @@ void enviarDatosPrueba(){
 
 int Envio_Datos_Sensores() {   
     delay(10);
-    ModbusRTUServer.holdingRegisterWrite(SSF_NoConexion,copy_SSF_NoConexion);
-    delay(10);
-    ModbusRTUServer.holdingRegisterWrite(SSF_EstadoAct,copy_SSF_EstadoAct);
-    delay(10);
-    ModbusRTUServer.holdingRegisterWrite(SSF_EstadoAnt,copy_SSF_EstadoAnt);
-    delay(10);
-    ModbusRTUServer.holdingRegisterWrite(SSF_Modo,copy_SSF_Modo);
-    delay(10);
-    ModbusRTUServer.holdingRegisterWrite(SSF_Confirmacion,copy_SSF_Confirmacion);
-    delay(10);
-    ModbusRTUServer.holdingRegisterWrite(SSF_Fechadd,copy_SSF_Fechadd);
-    delay(10);
-    ModbusRTUServer.holdingRegisterWrite(SSF_Fechamm,copy_SSF_Fechamm);
-    delay(10);
-    ModbusRTUServer.holdingRegisterWrite(SSF_Fechaaa,copy_SSF_Fechaaa);
-    delay(10);
-    ModbusRTUServer.holdingRegisterWrite(SSF_Horahh,copy_SSF_Horahh);
-    delay(10);
-    ModbusRTUServer.holdingRegisterWrite(SSF_Horamm,copy_SSF_Horamm);
-    delay(10);
-    ModbusRTUServer.holdingRegisterWrite(SSF_Temperatura,copy_SSF_Temperatura);
-    delay(10);
-    ModbusRTUServer.holdingRegisterWrite(SSF_Humedad,copy_SSF_Humedad);
-    delay(10);
-    ModbusRTUServer.holdingRegisterWrite(SSF_NutrientesN,copy_SSF_NutrientesN);
-    delay(10);
-    ModbusRTUServer.holdingRegisterWrite(SSF_NutrientesP,copy_SSF_NutrientesP);
-    delay(10);
-    ModbusRTUServer.holdingRegisterWrite(SSF_NutrientesK,copy_SSF_NutrientesK);
-    delay(10);
-    ModbusRTUServer.holdingRegisterWrite(SSF_pH,copy_SSF_pH);
-    delay(10);    
+    ModbusRTUServer.holdingRegisterWrite(SSF_NoConexion,copy_SSF_NoConexion); 
 }
 
 
 int Limpieza_Datos(){  
     delay(110);
     copy_SSF_NoConexion = ModbusRTUServer.holdingRegisterRead(SSF_NoConexion);
-    delay(110);
-    copy_SSF_EstadoAct = ModbusRTUServer.holdingRegisterRead(SSF_EstadoAct);
-    delay(110);
-    copy_SSF_EstadoAct = ModbusRTUServer.holdingRegisterRead(SSF_EstadoAnt);
-    delay(110);
-    copy_SSF_Modo = ModbusRTUServer.holdingRegisterRead(SSF_Modo);
-    delay(110);
-    copy_SSF_Confirmacion = ModbusRTUServer.holdingRegisterRead(SSF_Confirmacion);
-    delay(110);
-    copy_SSF_Fechadd = ModbusRTUServer.holdingRegisterRead(SSF_Fechadd);
-    delay(110);
-    copy_SSF_Fechamm = ModbusRTUServer.holdingRegisterRead(SSF_Fechamm);
-    delay(110);
-    copy_SSF_Fechaaa = ModbusRTUServer.holdingRegisterRead(SSF_Fechaaa);
-    delay(110);
-    copy_SSF_Horahh = ModbusRTUServer.holdingRegisterRead(SSF_Horahh);
-    delay(110);
-    copy_SSF_Horamm = ModbusRTUServer.holdingRegisterRead(SSF_Horamm);
-    delay(110);
-    copy_SSF_Temperatura = ModbusRTUServer.holdingRegisterRead(SSF_Temperatura);
-    delay(110);
-    copy_SSF_Humedad = ModbusRTUServer.holdingRegisterRead(SSF_Humedad);
-    delay(110);
-    copy_SSF_NutrientesN = ModbusRTUServer.holdingRegisterRead(SSF_NutrientesN);
-    delay(110);
-    copy_SSF_NutrientesP = ModbusRTUServer.holdingRegisterRead(SSF_NutrientesP);
-    delay(110);
-    copy_SSF_NutrientesK = ModbusRTUServer.holdingRegisterRead(SSF_NutrientesK);
-    delay(110);
-    copy_SSF_pH = ModbusRTUServer.holdingRegisterRead(SSF_pH);
-    delay(110);
+    delay(50)
 }
