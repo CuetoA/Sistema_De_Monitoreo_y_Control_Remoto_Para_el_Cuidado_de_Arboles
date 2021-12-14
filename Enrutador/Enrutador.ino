@@ -177,19 +177,19 @@ else{
 }
 
 // If de Medicion
-//Serial.print("Fecha a llegar  \t");
-//Serial.println(Rut_Dia);
-//Serial.print("\t");
-//Serial.print(Rut_horas);
-//Serial.print(":");
-//Serial.println(Rut_min);
-//
-//Serial.print("Fecha de ahora  \t");
-//Serial.print(day(fecha));
-//Serial.print("\t");
-//Serial.print(hour(fecha));
-//Serial.print(":");
-//Serial.println(minute(fecha));
+Serial.print("Fecha a llegar  \t");
+Serial.println(Rut_Dia);
+Serial.print("\t");
+Serial.print(Rut_horas);
+Serial.print(":");
+Serial.println(Rut_min);
+
+Serial.print("Fecha de ahora  \t");
+Serial.print(day(fecha));
+Serial.print("\t");
+Serial.print(hour(fecha));
+Serial.print(":");
+Serial.println(minute(fecha));
 
 
 if(Rut_Dia <= day(fecha) && Rut_horas <= hour(fecha) && Rut_min <= minute(fecha)){
@@ -505,7 +505,7 @@ void setup() {
   Serial.print(hour(fecha));
   Serial.print(":");
   Serial.println(minute(fecha));
-  Intervalos();
+  //Intervalos();
 
   /*
   volumen_a_final = VolumenCaptura_A();
@@ -517,6 +517,9 @@ void setup() {
 
 void loop() {
   // send data only when you receive data:
+  //interrupts();
+  //fecha = now();
+  
   while(Serial.available()==0){//No hagas nada si no recibes nada
     }
   if (Serial.available() > 0) {
@@ -572,6 +575,7 @@ void verificarModos(){
     Serial.println("Entrando al modo semiautomático");
   }else if(modo == 1){
     // Automático
+    Intervalos();
     seteoDeVariables();
     automatico();
   } 
@@ -584,13 +588,24 @@ void seteoDeVariables(){
   volumen_f_final = arregloDatos[18].toInt();
   volumen_f_final = volumen_f_final / 1000;
   //Serial.println(volumen_f_final);
+//  Serial.print("Med_D: \t");
+//  Serial.println(Med_D);
+//  Serial.print("Rie_D: \t");
+//  Serial.println(Rie_D);
 }
 
 
 
 void automatico(){
   Serial.println("Automático");
-  fecha = now();
+  //Intervalos();
+  int Bandera_Automatico = 1 ;
+  do{
+    fecha = now();  
+  Serial.print("Fecha Automatico ");
+  Serial.print(hour(fecha));
+  Serial.print(":");
+  Serial.println(minute(fecha));
   int accion_M = Rutina(day(Fecha_M),hor_M,min_M,Fecha_M,fecha);
   int accion_R = Rutina(day(Fecha_R),hor_R,min_R,Fecha_R,fecha);
   
@@ -625,4 +640,7 @@ void automatico(){
     Fecha_R = now();}
     
     }
+
+    Bandera_Automatico = 1;
+  }while(Bandera_Automatico == 1);
 }
